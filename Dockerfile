@@ -9,6 +9,10 @@ EXPOSE 139 445
 
 ENV ACCOUNT_NAME=user         \
     ACCOUNT_PASSWORD=pwd123   \
-    ShareName=Share                        
+    SHARE_NAME=Share                        
 
-CMD ["sh", "entrypoint.sh"]
+ENTRYPOINT ["sh", "entrypoint.sh"]
+
+CMD ["smbd -FS -d 2 --no-process-group"]
+# Или 
+# smbd -FS --no-process-group

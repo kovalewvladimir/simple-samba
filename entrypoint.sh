@@ -15,7 +15,7 @@ EOF
     echo -e "$ACCOUNT_PASSWORD\n$ACCOUNT_PASSWORD" | smbpasswd -a "$ACCOUNT_NAME"
     smbpasswd -e "$ACCOUNT_NAME"
 
-    mkdir -p /shares/"$ShareName"
+    mkdir -p /shares/"$SHARE_NAME"
 
     cat > /etc/samba/smb.conf <<EOF
     [global]
@@ -37,8 +37,8 @@ EOF
         panic action = /usr/share/samba/panic-action %d
         idmap config * : backend = tdb
 
-    [$ShareName]
-        path = /shares/$ShareName
+    [$SHARE_NAME]
+        path = /shares/$SHARE_NAME
         valid users = $ACCOUNT_NAME
         read only = No
         create mask = 0775
@@ -62,6 +62,9 @@ cat <<EOF
 RUN SAMBA
 ################################################################################
 EOF
-smbd -FS -d 2 --no-process-group
-# Или 
-# smbd -FS --no-process-group
+
+##
+# CMD
+##
+echo ">> CMD: $@"
+$@

@@ -67,4 +67,4 @@ EOF
 # CMD
 ##
 echo ">> CMD: $@"
-$@
+exec $@
